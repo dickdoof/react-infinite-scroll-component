@@ -4,8 +4,11 @@ import { ThresholdUnits, parseThreshold } from './utils/threshold';
 
 type Fn = () => any;
 export interface Props {
+  usePrev?: boolean;
   next: Fn;
+  prev?: Fn;
   hasMore: boolean;
+  hasPrev?: boolean;
   children: ReactNode;
   loader: ReactNode;
   scrollThreshold?: number | string;
@@ -28,6 +31,7 @@ export interface Props {
 
 interface State {
   showLoader: boolean;
+  showTopLoader: boolean;
   pullToRefreshThresholdBreached: boolean;
   prevDataLength: number | undefined;
 }
@@ -38,6 +42,7 @@ export default class InfiniteScroll extends Component<Props, State> {
 
     this.state = {
       showLoader: false,
+      showTopLoader: false,
       pullToRefreshThresholdBreached: false,
       prevDataLength: props.dataLength,
     };
@@ -148,6 +153,7 @@ export default class InfiniteScroll extends Component<Props, State> {
     // update state when new data was sent in
     this.setState({
       showLoader: false,
+      showTopLoader: false,
     });
   }
 
@@ -317,11 +323,21 @@ export default class InfiniteScroll extends Component<Props, State> {
       ? this.isElementAtTop(target, this.props.scrollThreshold)
       : this.isElementAtBottom(target, this.props.scrollThreshold);
 
+    const atTop = this.props.usePrev
+      ? this.isElementAtTop(target, this.props.scrollThreshold)
+      : false;
+
     // call the `next` function in the props to trigger the next data fetch
     if (atBottom && this.props.hasMore) {
       this.actionTriggered = true;
       this.setState({ showLoader: true });
       this.props.next && this.props.next();
+    }
+
+    if (atTop && this.props.hasPrev) {
+      this.actionTriggered = true;
+      this.setState({ showTopLoader: true });
+      this.props.prev && this.props.prev();
     }
 
     this.lastScrollTop = target.scrollTop;
@@ -377,6 +393,8 @@ export default class InfiniteScroll extends Component<Props, State> {
               </div>
             </div>
           )}
+          {this.state.showTopLoader && this.props.hasPrev && this.props.loader}
+
           {this.props.children}
           {!this.state.showLoader &&
             !hasChildren &&

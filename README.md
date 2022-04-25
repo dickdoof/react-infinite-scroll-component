@@ -1,6 +1,9 @@
 # react-infinite-scroll-component [![npm](https://img.shields.io/npm/dt/react-infinite-scroll-component.svg?style=flat-square)](https://www.npmjs.com/package/react-infinite-scroll-component) [![npm](https://img.shields.io/npm/v/react-infinite-scroll-component.svg?style=flat-square)](https://www.npmjs.com/package/react-infinite-scroll-component)
+
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+
 [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 A component to make all your infinite scrolling woes go away with just 4.15 kB! `Pull Down to Refresh` feature
@@ -80,6 +83,38 @@ added. An infinite-scroll that actually works and super-simple to integrate!
 </div>
 ```
 
+## Using scroll on top and bottom
+
+```jsx
+<div
+  id="scrollableDiv"
+  style={{
+    height: 300,
+    overflow: 'auto',
+    display: 'flex',
+  }}
+>
+  {/*Put the scroll bar always on the bottom*/}
+  <InfiniteScroll
+    dataLength={this.state.items.length}
+    next={this.fetchMoreData}
+    usePrev={true}
+    prev={this.fetchPrevData}
+    style={{ display: 'flex', flexDirection: 'column-reverse' }} //To put endMessage and loader to the top.
+    hasMore={true}
+    hasPrev={true}
+    loader={<h4>Loading...</h4>}
+    scrollableTarget="scrollableDiv"
+  >
+    {this.state.items.map((_, index) => (
+      <div style={style} key={index}>
+        div - #{index}
+      </div>
+    ))}
+  </InfiniteScroll>
+</div>
+```
+
 The `InfiniteScroll` component can be used in three ways.
 
 - Specify a value for the `height` prop if you want your **scrollable** content to have a specific height, providing scrollbars for scrolling your content and fetching more data.
@@ -125,6 +160,9 @@ The `InfiniteScroll` component can be used in three ways.
 | **refreshFunction**            | function             | this function will be called, it should return the fresh data that you want to show the user                                                                                                                                                                                                                                                  |
 | **initialScrollY**             | number               | set a scroll y position for the component to render with.                                                                                                                                                                                                                                                                                     |
 | **inverse**                    | bool                 | set infinite scroll on top                                                                                                                                                                                                                                                                                                                    |
+| **usePrev**                    | bool                 | set true if you like to use a scroller on bottom and top - be aware you should remove elements from your array on loading                                                                                                                                                                                                                     |
+| **prev**                       | function             | a function which must be called after reaching the top. It must trigger some sort of action which fetches the prev data. **The data is passed as `children` to the `InfiniteScroll` component and the data should contain previous items too.** e.g. _Initial data = [4, 5, 6]_ and then next load of data should be _[1, 2, 3, 4, 5, 6]_.    |
+| **hasPrev**                    | bool                 | tells the Scroller if there is any previous data to load                                                                                                                                                                                                                                                                                      |
 
 ## Contributors ✨
 
