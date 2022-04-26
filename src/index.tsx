@@ -327,14 +327,18 @@ export default class InfiniteScroll extends Component<Props, State> {
       ? this.isElementAtTop(target, this.props.scrollThreshold)
       : false;
 
+    console.log("HERE atBottom, atTop", atBottom, atTop)
+
     // call the `next` function in the props to trigger the next data fetch
     if (atBottom && this.props.hasMore) {
+      console.log("HERE load next")
       this.actionTriggered = true;
       this.setState({ showLoader: true });
       this.props.next && this.props.next();
     }
 
     if (atTop && this.props.hasPrev) {
+      console.log("HERE load prev")
       this.actionTriggered = true;
       this.setState({ showTopLoader: true });
       this.props.prev && this.props.prev();

@@ -297,13 +297,16 @@ var InfiniteScroll = /** @class */ (function (_super) {
             var atTop = _this.props.usePrev
                 ? _this.isElementAtTop(target, _this.props.scrollThreshold)
                 : false;
+            console.log("HERE atBottom, atTop", atBottom, atTop);
             // call the `next` function in the props to trigger the next data fetch
             if (atBottom && _this.props.hasMore) {
+                console.log("HERE load next");
                 _this.actionTriggered = true;
                 _this.setState({ showLoader: true });
                 _this.props.next && _this.props.next();
             }
             if (atTop && _this.props.hasPrev) {
+                console.log("HERE load prev");
                 _this.actionTriggered = true;
                 _this.setState({ showTopLoader: true });
                 _this.props.prev && _this.props.prev();
