@@ -6,6 +6,8 @@ export interface Props {
     prev?: Fn;
     hasMore: boolean;
     hasPrev?: boolean;
+    showTopLoader?: boolean;
+    showBottomLoader?: boolean;
     children: ReactNode;
     loader: ReactNode;
     scrollThreshold?: number | string;

@@ -377,8 +377,19 @@ var InfiniteScroll = /** @class */ (function (_super) {
     };
     InfiniteScroll.prototype.componentDidUpdate = function (prevProps) {
         // do nothing when dataLength is unchanged
-        if (this.props.dataLength === prevProps.dataLength)
+        if (this.props.dataLength === prevProps.dataLength) {
+            if (this.props.showTopLoader) {
+                this.setState({
+                    showTopLoader: this.props.showTopLoader,
+                });
+            }
+            if (this.props.showBottomLoader) {
+                this.setState({
+                    showLoader: this.props.showBottomLoader,
+                });
+            }
             return;
+        }
         this.actionTriggered = false;
         // update state when new data was sent in
         this.setState({
