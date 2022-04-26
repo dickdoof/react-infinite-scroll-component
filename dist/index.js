@@ -384,13 +384,13 @@ var InfiniteScroll = /** @class */ (function (_super) {
     InfiniteScroll.prototype.componentDidUpdate = function (prevProps) {
         // do nothing when dataLength is unchanged
         if (this.props.dataLength === prevProps.dataLength) {
-            if (this.props.showTopLoader) {
+            if ((this.state.showLoader || this.state.showTopLoader)) {
+                this.actionTriggered = false;
                 this.setState({
                     showTopLoader: this.props.showTopLoader ? this.props.showTopLoader : true,
                     showLoader: this.props.showBottomLoader ? this.props.showBottomLoader : true,
                 });
             }
-            this.actionTriggered = false;
             return;
         }
         this.actionTriggered = false;
