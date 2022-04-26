@@ -151,16 +151,13 @@ export default class InfiniteScroll extends Component<Props, State> {
     if (this.props.dataLength === prevProps.dataLength) {
       if(this.props.showTopLoader){
         this.setState({
-          showTopLoader: this.props.showTopLoader,
+          showTopLoader: this.props.showTopLoader ? this.props.showTopLoader : true,
+          showLoader: this.props.showBottomLoader ? this.props.showBottomLoader: true,
         });
       }
-      if(this.props.showBottomLoader){
-        this.setState({
-          showLoader: this.props.showBottomLoader,
-        });
-      }
+      this.actionTriggered = false;
 
-      return
+      return;
     };
 
     this.actionTriggered = false;
