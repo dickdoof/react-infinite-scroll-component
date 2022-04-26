@@ -48,7 +48,7 @@ export default class InfiniteScroll extends Component<Props, State> {
     private maxPullDownDistance;
     componentDidMount(): void;
     componentWillUnmount(): void;
-    componentDidUpdate(): void;
+    componentDidUpdate(prevProps: Props): void;
     static getDerivedStateFromProps(nextProps: Props, prevState: State): {
         prevDataLength: number;
         showLoader: boolean;

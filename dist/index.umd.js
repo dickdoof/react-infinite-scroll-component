@@ -380,7 +380,13 @@ var InfiniteScroll = (function (React) {
                 }
             }
         };
-        InfiniteScroll.prototype.componentDidUpdate = function () {
+        InfiniteScroll.prototype.componentDidUpdate = function (prevProps) {
+            // do nothing when dataLength is unchanged
+            if (this.props.dataLength === prevProps.dataLength &&
+                this.props.showBottomLoader === prevProps.showBottomLoader &&
+                this.props.showTopLoader === prevProps.showTopLoader) {
+                return;
+            }
             this.actionTriggered = false;
             // update state when new data was sent in
             this.setState({
