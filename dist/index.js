@@ -381,18 +381,7 @@ var InfiniteScroll = /** @class */ (function (_super) {
             }
         }
     };
-    InfiniteScroll.prototype.componentDidUpdate = function (prevProps) {
-        // do nothing when dataLength is unchanged
-        if (this.props.dataLength === prevProps.dataLength) {
-            if ((this.state.showLoader || this.state.showTopLoader)) {
-                this.actionTriggered = false;
-                this.setState({
-                    showTopLoader: this.props.showTopLoader ? this.props.showTopLoader : true,
-                    showLoader: this.props.showBottomLoader ? this.props.showBottomLoader : true,
-                });
-            }
-            return;
-        }
+    InfiniteScroll.prototype.componentDidUpdate = function () {
         this.actionTriggered = false;
         // update state when new data was sent in
         this.setState({
