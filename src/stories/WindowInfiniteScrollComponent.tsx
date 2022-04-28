@@ -2,13 +2,12 @@ import React from 'react';
 import InfiniteScroll from '../index';
 type State = {
   data: number[];
+  dataUpdated: boolean;
 };
-export default class WindowInfiniteScrollComponent extends React.Component<
-  {},
-  State
-> {
+export default class WindowInfiniteScrollComponent extends React.Component<  {},  State> {
   state = {
     data: new Array(100).fill(1),
+    dataUpdated: true,
   };
 
   next = () => {
@@ -17,6 +16,11 @@ export default class WindowInfiniteScrollComponent extends React.Component<
       this.setState({ data: newData });
     }, 2000);
   };
+
+  setWorkflowUpdatedFalse() {
+    this.setState({dataUpdated: false});
+  }
+
   render() {
     return (
       <>
@@ -24,6 +28,8 @@ export default class WindowInfiniteScrollComponent extends React.Component<
           hasMore={true}
           next={this.next}
           loader={<h1>Loading...</h1>}
+          dataUpdated={this.state.dataUpdated}
+          setDataUpdated={this.setWorkflowUpdatedFalse}
           dataLength={this.state.data.length}
         >
           {this.state.data.map((_, i) => (

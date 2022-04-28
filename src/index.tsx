@@ -29,6 +29,8 @@ export interface Props {
   dataLength: number;
   initialScrollY?: number;
   className?: string;
+  dataUpdated: boolean;
+  setDataUpdated: Fn;
 }
 
 interface State {
@@ -148,13 +150,12 @@ export default class InfiniteScroll extends Component<Props, State> {
 
   componentDidUpdate(prevProps: Props) {
     // do nothing when dataLength is unchanged
-    if (this.props.dataLength === prevProps.dataLength &&
-        this.props.showBottomLoader === prevProps.showBottomLoader &&
-        this.props.showTopLoader === prevProps.showTopLoader ) {
+    if (this.props.dataLength === prevProps.dataLength || !this.props.dataUpdated) {
       return;
     };
 
     this.actionTriggered = false;
+    this.props.setDataUpdated();
 
     // update state when new data was sent in
     this.setState({

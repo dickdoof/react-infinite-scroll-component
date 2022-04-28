@@ -1,9 +1,15 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { render, cleanup } from '@testing-library/react';
 import InfiniteScroll from '../index';
 
 describe('React Infinite Scroll Component', () => {
   const originalConsoleError = console.error;
+
+  const [dataUpdated, setDataUpdated] = useState(true);
+
+  const setWorkflowUpdatedFalse = () => {
+    setDataUpdated(false);
+  }
 
   afterEach(() => {
     cleanup();
@@ -17,6 +23,8 @@ describe('React Infinite Scroll Component', () => {
         loader={'Loading...'}
         hasMore={false}
         next={() => {}}
+        dataUpdated={dataUpdated}
+        setDataUpdated={setWorkflowUpdatedFalse}
       >
         <div />
       </InfiniteScroll>
@@ -34,6 +42,8 @@ describe('React Infinite Scroll Component', () => {
         className="custom-class"
         hasMore={false}
         next={() => {}}
+        dataUpdated={dataUpdated}
+        setDataUpdated={setWorkflowUpdatedFalse}
       >
         <div />
       </InfiniteScroll>
@@ -48,6 +58,8 @@ describe('React Infinite Scroll Component', () => {
         loader={'Loading...'}
         hasMore={false}
         next={() => {}}
+        dataUpdated={dataUpdated}
+        setDataUpdated={setWorkflowUpdatedFalse}
       >
         <div className="child" />
       </InfiniteScroll>
@@ -67,6 +79,8 @@ describe('React Infinite Scroll Component', () => {
         height={100}
         hasMore={false}
         next={() => {}}
+        dataUpdated={dataUpdated}
+        setDataUpdated={setWorkflowUpdatedFalse}
       >
         <div />
       </InfiniteScroll>
@@ -106,6 +120,8 @@ describe('React Infinite Scroll Component', () => {
           hasMore={false}
           scrollThreshold={0}
           next={() => {}}
+          dataUpdated={dataUpdated}
+          setDataUpdated={setWorkflowUpdatedFalse}
         >
           <div />
         </InfiniteScroll>
@@ -128,6 +144,8 @@ describe('React Infinite Scroll Component', () => {
           scrollThreshold={0}
           next={() => {}}
           height={100}
+          dataUpdated={dataUpdated}
+          setDataUpdated={setWorkflowUpdatedFalse}
         >
           <div />
         </InfiniteScroll>
@@ -150,6 +168,8 @@ describe('React Infinite Scroll Component', () => {
         endMessage={'Reached end.'}
         hasMore={false}
         next={() => {}}
+        dataUpdated={dataUpdated}
+        setDataUpdated={setWorkflowUpdatedFalse}
       >
         <div />
       </InfiniteScroll>
@@ -164,6 +184,8 @@ describe('React Infinite Scroll Component', () => {
         dataLength={10}
         next={() => {}}
         loader={<div>Loading...</div>}
+        dataUpdated={dataUpdated}
+        setDataUpdated={setWorkflowUpdatedFalse}
       >
         <div />
       </InfiniteScroll>

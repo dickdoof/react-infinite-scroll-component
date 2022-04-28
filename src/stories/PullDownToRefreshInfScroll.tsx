@@ -12,6 +12,7 @@ const style = {
 export default class App extends React.Component {
   state = {
     items: Array.from({ length: 20 }),
+    dataUpdated: true,
   };
 
   fetchMoreData = () => {
@@ -23,6 +24,10 @@ export default class App extends React.Component {
       });
     }, 1500);
   };
+
+  setWorkflowUpdatedFalse() {
+    this.setState({dataUpdated: false});
+  }
 
   render() {
     return (
@@ -44,6 +49,8 @@ export default class App extends React.Component {
             <h3 style={{ textAlign: 'center' }}>&#8593; Release to refresh</h3>
           }
           refreshFunction={this.fetchMoreData}
+          dataUpdated={this.state.dataUpdated}
+          setDataUpdated={this.setWorkflowUpdatedFalse}
         >
           {this.state.items.map((_, index) => (
             <div style={style} key={index}>

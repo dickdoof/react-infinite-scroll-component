@@ -12,6 +12,7 @@ const style = {
 export default class App extends React.Component {
   state = {
     items: Array.from({ length: 20 }),
+    dataUpdated: true,
   };
 
   fetchMoreData = () => {
@@ -23,6 +24,10 @@ export default class App extends React.Component {
       });
     }, 1500);
   };
+
+  setWorkflowUpdatedFalse() {
+    this.setState({dataUpdated: false});
+  }
 
   render() {
     return (
@@ -45,6 +50,8 @@ export default class App extends React.Component {
             inverse={true}
             hasMore={true}
             loader={<h4>Loading...</h4>}
+            dataUpdated={this.state.dataUpdated}
+            setDataUpdated={this.setWorkflowUpdatedFalse}
             scrollableTarget="scrollableDiv"
           >
             {this.state.items.map((_, index) => (

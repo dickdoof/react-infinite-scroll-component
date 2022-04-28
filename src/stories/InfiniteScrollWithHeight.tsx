@@ -13,6 +13,7 @@ export default class App extends React.Component {
   state = {
     items: Array.from({ length: 20 }),
     hasMore: true,
+    dataUpdated: true,
   };
 
   fetchMoreData = () => {
@@ -28,6 +29,10 @@ export default class App extends React.Component {
       });
     }, 500);
   };
+
+  setWorkflowUpdatedFalse() {
+    this.setState({dataUpdated: false});
+  }
 
   render() {
     return (
@@ -45,6 +50,8 @@ export default class App extends React.Component {
               <b>Yay! You have seen it all</b>
             </p>
           }
+          dataUpdated={this.state.dataUpdated}
+          setDataUpdated={this.setWorkflowUpdatedFalse}
         >
           {this.state.items.map((_, index) => (
             <div style={style} key={index}>
